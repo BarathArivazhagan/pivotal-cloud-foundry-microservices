@@ -1,0 +1,9 @@
+---
+applications:
+- name: EurekaClient-School-MongoDB-PCF
+  memory: 512M
+  host: eurekaschoolmongo
+  domain: local.pcfdev.io
+  buildpack: java_buildpack
+  services:
+  - MONGODB
