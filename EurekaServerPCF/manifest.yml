@@ -1,0 +1,7 @@
+---
+applications:
+- name: EurekaServerPCF
+  memory: 512M
+  host: eurekaserver
+  domain: local.pcfdev.io
+  buildpack: java_buildpack
