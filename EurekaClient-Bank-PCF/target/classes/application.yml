@@ -1,0 +1,48 @@
+server:
+  port: 8082
+  
+
+spring:
+  application:
+    name: EurekaClient-Bank-PCF
+  profiles:
+    active: local
+  autoconfigure:
+    exclude:
+      - "org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration"
+      - "org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"
+     # - "org.springframework.boot.autoconfigure.web.ServerPropertiesAutoConfiguration"
+     # - "org.springframework.boot.actuate.autoconfigure.ManagementServerPropertiesAutoConfiguration"
+    #  - "org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration"
+feign:
+   hystrix:
+      enabled: false  
+     
+ 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.server.port}/eureka
+  instance:
+      preferIpAddress: true
+      #defaultZone: http://localhost:8081/eureka
+      #defaultZone: http://eurekaserver.local.pcfdev.io
+
+hystrix:
+  command:
+    default:
+       execution: 
+          timeout:
+             enabled: false
+             
+     
+  
+  
+datasource:
+     connection: 
+         cloud:  
+            url : jdbc:postgresql://192.168.1.37:5432/postgres
+         local: 
+            url: ${datasource.postgresql.url}
+            #url :  jdbc:postgresql://192.168.1.37:5432/postgres
+            
