@@ -1,8 +1,10 @@
 package com.barath.football.app.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,9 +16,11 @@ import java.util.List;
 @Document(collection = "matches'")
 public class Match {
 
+    @Id
+    @Field
     private Long matchId;
 
-
+    @Field
     private Date matchDate;
 
     @DBRef
@@ -28,12 +32,16 @@ public class Match {
     @DBRef
     private Referee referee;
 
+    @Field
     private Goal goals;
 
+    @Field
     private String matchResult;
 
+    @Field
     private Shot shots;
 
+    @Field
     private List<Card> cards;
 
     public Match() {

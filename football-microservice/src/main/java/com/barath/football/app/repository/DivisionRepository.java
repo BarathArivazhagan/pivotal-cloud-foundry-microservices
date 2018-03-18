@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 /**
  * Created by barath on 18/03/18.
  */
-public interface DivisionRepository extends ReactiveMongoRepository<Division,Integer> {
+public interface DivisionRepository extends ReactiveMongoRepository<Division,Long> {
 
     Mono<Division> findByDivisionName(Mono<String> divisionName);
 }

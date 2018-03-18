@@ -14,14 +14,14 @@ public class Division {
 
     @Id
     @Field
-    private int divisionId;
+    private Long divisionId;
 
     @Field
     private String divisionName;
 
 
     @PersistenceConstructor
-    public Division(int divisionId, String divisionName) {
+    public Division(Long divisionId, String divisionName) {
         this.divisionId = divisionId;
         this.divisionName = divisionName;
     }
@@ -29,11 +29,11 @@ public class Division {
     public Division() {
     }
 
-    public int getDivisionId() {
+    public Long getDivisionId() {
         return divisionId;
     }
 
-    public void setDivisionId(int divisionId) {
+    public void setDivisionId(Long divisionId) {
         this.divisionId = divisionId;
     }
 
