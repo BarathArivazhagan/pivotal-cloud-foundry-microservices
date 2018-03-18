@@ -1,11 +1,13 @@
 package com.barath.bank.app.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.barath.bank.app.model.Account;
+import com.barath.bank.app.entity.Account;
 import com.barath.bank.app.repository.AccountRepository;
 
 
@@ -13,10 +15,11 @@ import com.barath.bank.app.repository.AccountRepository;
 public class AccountService {
 	
 
-	private AccountRepository accountRep; 
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	private AccountRepository accountRep;
 	
 	
-	@Autowired
+	
 	public AccountService(AccountRepository accountRep){
 		this.accountRep=accountRep;
 	}
@@ -63,8 +66,7 @@ public class AccountService {
 		return false;
 	}
 
-	public List<Account> getAllAccounts() {
-		
+	public List<Account> getAllAccounts() {		
 		return accountRep.findAll();
 	}
 

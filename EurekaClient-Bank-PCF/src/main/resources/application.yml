@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: EurekaClient-Bank-PCF
+    name: bank-microservice
   profiles:
     active: local
   autoconfigure:

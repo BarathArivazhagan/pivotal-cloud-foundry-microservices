@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.barath.bank.app.model.Customer;
+import com.barath.bank.app.entity.Customer;
 import com.barath.bank.app.repository.CustomerRepository;
 
 
