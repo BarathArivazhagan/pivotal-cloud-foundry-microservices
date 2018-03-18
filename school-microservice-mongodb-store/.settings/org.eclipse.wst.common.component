@@ -5,6 +5,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="java-output-path" value="/EurekaClient-School-MongoDB-PCF/target/classes"/>
-        <property name="context-root" value="school-microservice-mongodb-store"/>
+        <property name="context-root" value="EurekaClient-School-MongoDB-PCF"/>
     </wb-module>
 </project-modules>

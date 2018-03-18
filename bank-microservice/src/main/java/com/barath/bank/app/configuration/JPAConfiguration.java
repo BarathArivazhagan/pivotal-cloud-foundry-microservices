@@ -6,6 +6,7 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.orm.jpa.JpaDialect;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -22,29 +23,36 @@ public class JPAConfiguration {
 	private String[] profiles;
 	
 	
-	@Value("${datasource.connection.${spring.profiles.active}.url}")
+	@Value("${spring.datasource.url}")
 	private String dataSourceConnectionUrl;
 	
+	@Value("${entity.packagesToScan: com.barath.app.entity}")
+	private String packagesToScan;
+	
+	private DataSource dataSource;
+	
+	 public JPAConfiguration(DataSource dataSource) {
+		this.dataSource=dataSource;
+	}
 	
 	
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
 		LocalContainerEntityManagerFactoryBean entityManagerFactory=new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactory.setDataSource(dataSource());
+		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setJpaDialect(hibernateJpaDialect());
 		entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter());
 		entityManagerFactory.setPersistenceUnitName("bank-unit-pcf");
-		entityManagerFactory.setPersistenceXmlLocation("classpath:/META-INF/persistence.xml");
+		entityManagerFactory.setPackagesToScan(packagesToScan);
 		return entityManagerFactory;
 	}
 	
 	@Bean
 	public JpaTransactionManager transactionManager(){
-		JpaTransactionManager 	transactionManager=new JpaTransactionManager();
-		//jpaTransactionManager.setEntityManagerFactory((EntityManagerFactory) entityManagerFactory());
+		JpaTransactionManager 	transactionManager=new JpaTransactionManager();		
 		transactionManager.setJpaDialect(hibernateJpaDialect());
-		transactionManager.setDataSource(dataSource());
+		transactionManager.setDataSource(dataSource);
 		return 	transactionManager;
 	}
 	
@@ -54,6 +62,7 @@ public class JPAConfiguration {
 		return new HibernateJpaDialect();
 	}
 	
+	@Profile(value= "postgres")
 	@Bean
 	public JpaVendorAdapter hibernateJpaVendorAdapter(){
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter=new HibernateJpaVendorAdapter();
@@ -66,17 +75,20 @@ public class JPAConfiguration {
 	}
 	
 	
+	@Profile(value= "mysql")
 	@Bean
-	public DataSource dataSource(){
-		DataSource dataSource=new DataSource();
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("barath");
-		System.out.println("PROFILES ARE "+profiles);
-		dataSource.setDriverClassName("org.postgresql.Driver");
+	public JpaVendorAdapter mysqlHibernateJpaVendorAdapter(){
+		HibernateJpaVendorAdapter hibernateJpaVendorAdapter=new HibernateJpaVendorAdapter();
+		hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
+		hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
+		hibernateJpaVendorAdapter.setShowSql(true);
+		hibernateJpaVendorAdapter.setGenerateDdl(true);
+		return hibernateJpaVendorAdapter;
 		
-		dataSource.setUrl(dataSourceConnectionUrl);
-		return dataSource;
 	}
+	
+	
+	
 	
 
 }

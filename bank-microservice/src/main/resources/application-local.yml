@@ -1,0 +1,40 @@
+server:
+  port: 8082
+  
+
+spring:
+  datasource:
+    url: 
+    username: 
+    password: 
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  
+entity:
+  packagesToScan: com.barath.bank.app.entity 
+    
+feign:
+   hystrix:
+      enabled: false  
+     
+ 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.server.port}/eureka
+  instance:
+      preferIpAddress: true
+     
+
+hystrix:
+  command:
+    default:
+       execution: 
+          timeout:
+             enabled: false
+             
+
+            

@@ -7,10 +7,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
-public class EurekaClientSchoolMongoDbPcfApplication {
+public class SchoolApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EurekaClientSchoolMongoDbPcfApplication.class, args);
+		SpringApplication.run(SchoolApplication.class, args);
 	}
 }
