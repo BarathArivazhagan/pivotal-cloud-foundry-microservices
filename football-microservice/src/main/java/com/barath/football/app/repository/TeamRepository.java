@@ -1,6 +1,6 @@
 package com.barath.football.app.repository;
 
-import com.barath.football.app.entity.Team;
+import com.barath.football.app.document.Team;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -1,6 +1,6 @@
 package com.barath.football.app.service;
 
-import com.barath.football.app.entity.Division;
+import com.barath.football.app.document.Division;
 import com.barath.football.app.repository.DivisionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
 
 /**
@@ -27,7 +28,11 @@ public class DivisionService {
 
     public Mono<Division> addDivision(Mono<Division> divisionMono){
 
-        return divisionMono.doOnNext(divisionRepository::save).log();
+        return divisionMono.doOnNext( division -> {
+            System.out.println("division "+division);
+            divisionRepository.insert(division);
+
+        }).log();
     }
 
     public Flux<Division> getDivisions(){
@@ -38,5 +43,11 @@ public class DivisionService {
     public Mono<Division> getDivisionByDivisionName(Mono<String> divisionName){
 
         return divisionRepository.findByDivisionName(divisionName);
+    }
+
+    @PostConstruct
+    public void init(){
+
+        this.addDivision(Mono.just(new Division(1L,"E1")));
     }
 }

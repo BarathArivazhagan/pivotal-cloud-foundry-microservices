@@ -1,11 +1,10 @@
-package com.barath.football.app.entity;
+package com.barath.football.app.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by barath on 18/03/18.
  */
-@Document(collection = "matches'")
+@Document(collection = "matches")
 public class Match {
 
     @Id
@@ -22,6 +21,9 @@ public class Match {
 
     @Field
     private Date matchDate;
+
+    @DBRef
+    private Division division;
 
     @DBRef
     private Team homeTeam;
@@ -48,9 +50,10 @@ public class Match {
     }
 
     @PersistenceConstructor
-    public Match(Long matchId, Date matchDate, Team homeTeam, Team awayteam, Referee referee, Goal goals, String matchResult, Shot shots, List<Card> cards) {
+    public Match(Long matchId, Date matchDate, Division division, Team homeTeam, Team awayteam, Referee referee, Goal goals, String matchResult, Shot shots, List<Card> cards) {
         this.matchId = matchId;
         this.matchDate = matchDate;
+        this.division = division;
         this.homeTeam = homeTeam;
         this.awayteam = awayteam;
         this.referee = referee;
@@ -58,6 +61,14 @@ public class Match {
         this.matchResult = matchResult;
         this.shots = shots;
         this.cards = cards;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
     }
 
     public Long getMatchId() {
@@ -137,6 +148,7 @@ public class Match {
         return "Match{" +
                 "matchId=" + matchId +
                 ", matchDate=" + matchDate +
+                ", division=" + division +
                 ", homeTeam=" + homeTeam +
                 ", awayteam=" + awayteam +
                 ", referee=" + referee +

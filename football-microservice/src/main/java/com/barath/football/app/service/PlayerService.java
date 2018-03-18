@@ -1,7 +1,7 @@
 package com.barath.football.app.service;
 
-import com.barath.football.app.entity.Division;
-import com.barath.football.app.entity.Player;
+import com.barath.football.app.document.Player;
+import com.barath.football.app.document.Team;
 import com.barath.football.app.repository.PlayerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
 
 /**
@@ -40,5 +41,11 @@ public class PlayerService {
     public Flux<Player> getPlayersByPlayerName(Mono<String> playerName){
 
         return playerRepository.findByPlayerName(playerName);
+    }
+
+    @PostConstruct
+    public void init(){
+
+        playerRepository.save(new Player(1L,"hello",new Team(1L,"team2")));
     }
 }

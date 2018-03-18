@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: football-microservice
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: test
+      
+server:
+  port: 9100
+  
+logging:
+  level: 
+     org:
+      springframework:
+        data:
+          mongodb:
+             core: DEBUG

@@ -1,4 +1,4 @@
-package com.barath.football.app.entity;
+package com.barath.football.app.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Division {
 
     @Id
-    @Field
     private Long divisionId;
 
     @Field

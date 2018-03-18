@@ -1,6 +1,6 @@
 package com.barath.football.app.repository;
 
-import com.barath.football.app.entity.Match;
+import com.barath.football.app.document.Match;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 /**

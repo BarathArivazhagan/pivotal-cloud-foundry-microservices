@@ -1,4 +1,4 @@
-package com.barath.football.app.entity;
+package com.barath.football.app.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;

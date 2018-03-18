@@ -1,6 +1,6 @@
 package com.barath.football.app.repository;
 
-import com.barath.football.app.entity.Division;
+import com.barath.football.app.document.Division;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
 

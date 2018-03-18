@@ -1,7 +1,6 @@
 package com.barath.football.app.service;
 
-import com.barath.football.app.entity.Match;
-import com.barath.football.app.repository.DivisionRepository;
+import com.barath.football.app.document.Match;
 import com.barath.football.app.repository.MatchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +29,12 @@ public class MatchService {
     public Mono<Match> saveMatchReportCard(Mono<Match> matchMono){
 
         return matchMono.doOnNext(matchRepository::save).log();
+    }
+
+    public Mono<Match> saveMatchReportCard(Match match){
+
+        System.out.println("MATCH "+match);
+        return saveMatchReportCard(Mono.just(match));
     }
 
     public Flux<Match> getMatches(){

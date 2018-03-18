@@ -1,7 +1,6 @@
-package com.barath.football.app.entity;
+package com.barath.football.app.document;
 
 import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
