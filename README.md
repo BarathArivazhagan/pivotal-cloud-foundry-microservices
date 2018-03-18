@@ -1,3 +1,3 @@
-# Spring Boot Microservices delpoyed in PCF(pivotal cloud foundry)  
+# Spring Boot Microservices + PCF
 
 This repository contains project samples for Pivotal Cloud Foundry 
