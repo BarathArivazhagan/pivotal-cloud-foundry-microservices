@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.barath.customer.app.feign.client.BankFeignClient;
 
-@RestController
+//@RestController
 public class ApplicationController {
 	
 
