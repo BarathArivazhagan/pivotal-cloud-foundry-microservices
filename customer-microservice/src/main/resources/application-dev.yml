@@ -1,0 +1,35 @@
+spring:
+   datasource:
+      url: ${vcap.services.cleardb[0].credentials.jdbcUrl}
+      username: ${vcap.services.cleardb[0].credentials.username}
+      password: ${vcap.services.cleardb[0].credentials.password}
+      driver-class-name: com.mysql.jdbc.Driver
+   jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+
+
+eureka:
+  client:
+    serviceUrl:
+     defaultZone: https://eureka-97a07a8e-58e8-437d-9559-752c46dc50d8.cfapps.io
+    register-with-eureka: true
+    fetch-registry: true
+    #defaultZone: http://eurekaserver.local.pcfdev.io
+
+
+feign:
+   hystrix:
+      enabled: false
+
+
+hystrix:
+  command:
+    default:
+       execution:
+          timeout:
+             enabled: false
+
+
