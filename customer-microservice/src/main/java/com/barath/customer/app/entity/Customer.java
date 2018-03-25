@@ -1,4 +1,4 @@
-package com.barath.customer.app.model;
+package com.barath.customer.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,24 +6,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="CUSTOMER_APP",schema="PCFSCHEMA")
+@Table(name="CUSTOMER",schema="PCFSCHEMA")
 public class Customer {
 	
 	@Id
 	@Column(name="CUSTOMER_ID")
-	private long customerId;
+	private Long customerId;
 	
 	
 	@Column(name="CUSTOMER_NAME")
 	private String customerName;
 
 
-	public long getCustomerId() {
+	public Long getCustomerId() {
 		return customerId;
 	}
 
 
-	public void setCustomerId(long customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 
@@ -80,7 +80,7 @@ public class Customer {
 	}
 
 
-	public Customer(long customerId, String customerName) {
+	public Customer(Long customerId, String customerName) {
 		super();
 		this.customerId = customerId;
 		this.customerName = customerName;

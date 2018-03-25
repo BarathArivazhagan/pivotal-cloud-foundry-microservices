@@ -14,9 +14,14 @@ import com.barath.customer.app.feign.clients.BankFeignClient;
 @RestController
 public class ApplicationController {
 	
-	@Autowired
-	private BankFeignClient bankClient;
-	
+
+	private final BankFeignClient bankClient;
+
+
+	public ApplicationController(BankFeignClient bankClient) {
+		this.bankClient = bankClient;
+	}
+
 	@RequestMapping(value="/makeTransaction",method=RequestMethod.POST)
 	@ResponseBody
 	public Object addMoneyToAccount(@RequestBody Map<String,Object> params){

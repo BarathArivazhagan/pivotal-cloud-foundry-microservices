@@ -1,29 +1,27 @@
 package com.barath.customer.app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.barath.customer.app.model.Customer;
+import com.barath.customer.app.entity.Customer;
 import com.barath.customer.app.service.CustomerService;
 
 @RestController
-public class CustomerApplicationController {
+@RequestMapping(value = "/customer")
+public class CustomerController {
 	
-	@Autowired
-	private CustomerService customerService;
-	
-	@RequestMapping("/")
+
+	private final CustomerService customerService;
+
+	public CustomerController(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	@GetMapping("/")
 	public String handleHome(){
 		return "Welcome to Customer Application";
 	}
 	
-	@RequestMapping(value="/addCustomer",method=RequestMethod.POST)
+	@PostMapping(value="/add")
 	public String addCustomer(@RequestBody Customer customer){
 		if(customer !=null){
 			customerService.addCustomer(customer);
@@ -33,24 +31,24 @@ public class CustomerApplicationController {
 	}
 	
 	
-	@RequestMapping("/getCustomer")
+	@RequestMapping(value="/get")
 	public Customer getCustomer(@RequestParam("id") long customerId){
 		
 		return customerService.getCustomer(customerId);
 	}
 	
-	@RequestMapping("/getCustomerByName")
+	@GetMapping(value="/getCustomerByName")
 	public Customer getCustomer(@RequestParam("name") String customerName){
 		return customerService.getCustomer(customerName);
 	}
 	
-	@RequestMapping("/updateCustomer")
+	@PutMapping("/update")
 	public String updateCustomer(){
 		return "Welcome to Customer Application";
 	}
 	
 	@ExceptionHandler(Exception.class)
-	public String handleeError(Exception ex){
+	public String handleError(Exception ex){
 		return ex.getMessage();
 	}
 	
