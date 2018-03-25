@@ -1,0 +1,9 @@
+---
+applications:
+- name: customer-microservice
+  memory: 1024M
+  instances: 1
+  host: customerapp-barath
+  #domain: local.pcfdev.io
+  buildpack: java_buildpack
+  path: target/customer-microservice-0.0.1-SNAPSHOT.jar
