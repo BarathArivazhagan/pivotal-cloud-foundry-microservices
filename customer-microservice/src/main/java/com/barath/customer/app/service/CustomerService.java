@@ -1,44 +1,41 @@
 package com.barath.customer.app.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.barath.customer.app.entity.Customer;
 import com.barath.customer.app.repository.CustomerRepository;
+
+import java.util.Objects;
 
 @Service
 public class CustomerService {
 	
 	private final CustomerRepository customerRepository;
 	
-	
-	@Autowired
+
 	public CustomerService(CustomerRepository customerRepository){
 		this.customerRepository=customerRepository;
 	}
 	
-	public void addCustomer(Customer customer){
-		customerRepository.save(customer);
+	public Customer addCustomer(Customer customer){
+		 return customerRepository.save(customer);
 	}
 	
 	public Customer getCustomer(final long customerId){
-		Customer customer=null;
-		if(customerRepository.exists(customerId)){
-			customer=customerRepository.findOne(customerId);
-		}
-		
-		return customer;
+
+		return customerRepository.findOne(customerId);
+
 	}
 
-	public void updateCustomer(Customer customer){
-		if(isCustomerExists(customer)){
-			customerRepository.save(customer);
-		}
+	public Customer updateCustomer(Customer customer){
+
+		return addCustomer(customer);
 	}
 	public void deleteCustomer(long customerId){
-		if(isCustomerExists(customerId)){
-			customerRepository.delete(customerId) ;
-		}
+
+		customerRepository.delete(customerId) ;
+
 	}
 	public void deleteCustomer(Customer customer){
 		if(isCustomerExists(customer)){
@@ -51,7 +48,7 @@ public class CustomerService {
 	}
 	
 	public boolean isCustomerExists(Customer customer){
-		if(customer != null){
+		if(Objects.nonNull(customer)){
 			return customerRepository.exists(customer.getCustomerId());
 		}
 		return false;

@@ -1,4 +1,4 @@
-package com.barath.customer.app.feign.clients;
+package com.barath.customer.app.feign.client;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient("EurekaClient-Bank-PCF")
+@FeignClient("bank-microservice")
 public interface BankFeignClient {
 	
 	@RequestMapping(value="/handleTransaction",method=RequestMethod.POST)

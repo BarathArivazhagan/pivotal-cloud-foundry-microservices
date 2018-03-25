@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.barath.customer.app.feign.clients.BankFeignClient;
+import com.barath.customer.app.feign.client.BankFeignClient;
 
 @RestController
 public class ApplicationController {
