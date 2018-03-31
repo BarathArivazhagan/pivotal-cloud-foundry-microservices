@@ -1,109 +1,121 @@
 package com.barath.school.app.service;
 
+import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.PostConstruct;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.barath.school.app.model.School;
+import com.barath.school.app.document.School;
 import com.barath.school.app.repository.SchoolRepository;
 
 
 @Service
 public class SchoolService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	private final SchoolRepository schoolRepository;
+	
+	
+	public SchoolService(SchoolRepository schoolRepository){
+		this.schoolRepository=schoolRepository;
+	}
+	
+	public School addSchool(School school){
+		
+		if (logger.isInfoEnabled()) logger.info(" saving school with details {} ",school);
+		return schoolRepository.save(school);
+	}
+	
+	public School getSchool(Long schoolId){
 
-	private SchoolRepository schoolRep; 
-	
-	
-	@Autowired
-	public SchoolService(SchoolRepository schoolRep){
-		this.schoolRep=schoolRep;
+		return schoolRepository.findBySchoolId(schoolId);
+		
 	}
 	
-	public void addSchool(School school){
-		schoolRep.save(school);
-	}
-	
-	public School getSchool(long schoolId){
-		
-		
-		School school=schoolRep.findBySchoolId(schoolId);
-		
-		
-		return school;
-	}
-	
-	public School getSchool(School school){
-		School schoolFound=null;
-		if(school !=null){
-			schoolFound=this.getSchool(school.getSchoolId());
-		}
-		
-		
-		return schoolFound;
+	public School getSchool(School school) throws Exception{
+
+		Optional<School> schoolOptional=Optional.ofNullable(school);
+		if (logger.isInfoEnabled()) logger.info(" getting school with details {} ",school);
+		return schoolOptional.isPresent() ? getSchool(school.getSchoolId()) : schoolOptional.orElse(new School());
+
 	}
 
-	public void updateSchool(School school){
-		if(isSchoolExists(school)){
-			School schoolFound=this.getSchool(school);
-			if(schoolFound !=null){
-				//schoolRep.
-			}
-			
-		}
+	public School updateSchool(School school){
+
+		return addSchool(school);
 	}
-	public void deleteSchool(long schoolId){
-		if(isSchoolExists(schoolId)){
-			schoolRep.delete(schoolId) ;
-		}
+
+	public void deleteSchool(Long schoolId){
+
+		if (logger.isInfoEnabled()) logger.info(" deleting school with details {} ",schoolId);
+		schoolRepository.delete(schoolId) ;
+
 	}
 	public void deleteSchool(School school){
-		if(isSchoolExists(school)){
-			schoolRep.delete(school) ;
-		}
-	}
-	
-	public boolean isSchoolExists(long schoolId){
-		School schoolFound= schoolRep.findBySchoolId(schoolId);
-		return schoolFound !=null ?  true:   false;
-	}
-	
-	public boolean isSchoolExists(School school){
-		if(school != null){
-			School schoolFound= schoolRep.findBySchoolId(school.getSchoolId());
-			return schoolFound !=null ?  true:   false;
-		}
-		return false;
-	}
-	
-	
 
+		schoolRepository.delete(school) ;
+
+	}
+	
 
 	public School getSchool(String schoolName) {
 		
-		return schoolRep.findBySchoolName(schoolName);
+		return schoolRepository.findBySchoolName(schoolName);
 	}
-	
-	
+
 
 	public List<School> getSchools() {
 		
-		return schoolRep.findAll();
+		return schoolRepository.findAll();
 	}
 
 	public boolean isSchoolExists(String schoolName) {
-		School school= schoolRep.findBySchoolName(schoolName);
-		if(school !=null){
-			return true;
-		}
-		return false;
+
+		return Optional.ofNullable(getSchool(schoolName)).isPresent();
 	}
-	
+
+	public boolean isSchoolExists(Long schoolId){
+
+		return Optional.ofNullable(getSchool(schoolId)).isPresent();
+
+	}
+
+	public boolean isSchoolExists(School school) throws Exception{
+
+		return Optional.ofNullable(getSchool(school)).isPresent();
+	}
+
+
 	public List<String> getListOfSchoolNames(){
 		
 		return getSchools().stream().map(School::getSchoolName).collect(Collectors.toList());
+		
+	}
+	
+	/**
+	 * This method to populate some data for testing.
+	 * 
+	 */
+	@PostConstruct
+	public void init(){
+		
+	    if(logger.isInfoEnabled()) logger.info("populating values to the database");
+		Arrays.asList(new School(1L,"ST.BEDES"),
+				new School(2L,"ST.BEDES1"),
+				new School(3L,"ST.BEDES2"),
+				new School(4L,"ST.BEDES3"),
+				new School(5L,"ST.BEDES4"),
+				new School(6L,"ST.BEDES5"),
+				new School(7L,"ST.BEDES6")).forEach(this::addSchool);
+		
+		
 		
 	}
 

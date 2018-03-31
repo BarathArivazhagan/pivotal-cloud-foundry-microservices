@@ -1,0 +1,28 @@
+server:
+  port: 9500
+
+spring:
+  application:
+    name: school-microservice
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+eureka:
+  client:
+    enabled: false
+security:
+  basic:
+    enabled: false
+    
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core: debug
+management:
+  security:
+    enabled: false

@@ -1,17 +1,18 @@
 package com.barath.school.app.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.barath.school.app.model.School;
+
+import com.barath.school.app.document.School;
 import com.barath.school.app.service.SchoolService;
 
 @RestController
@@ -19,13 +20,18 @@ public class SchoolController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(SchoolController.class);
 	
-	@Autowired
-	private SchoolService schoolService;
 	
+	private SchoolService schoolService;
 
 	
+	public SchoolController(SchoolService schoolService) {
+		super();
+		this.schoolService = schoolService;
+	}
+
+
 	@RequestMapping(value="/addSchool",method=RequestMethod.POST)
-	public String addSchool(@RequestBody School school){
+	public String addSchool(@RequestBody School  school){
 		if(school !=null){
 			schoolService.addSchool(school);
 			return "School is added successfully";
@@ -35,7 +41,7 @@ public class SchoolController {
 	
 	
 	@RequestMapping(value="/getSchool",method=RequestMethod.GET)
-	public School getSchool(@RequestParam("id") long schoolId){
+	public School getSchool(@RequestParam("id") Long schoolId){
 		System.out.println("school Id "+schoolId);
 		return schoolService.getSchool(schoolId);
 	}
