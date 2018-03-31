@@ -19,7 +19,7 @@ public class DivisionService {
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private DivisionRepository divisionRepository;
+    private final DivisionRepository divisionRepository;
 
     public DivisionService(DivisionRepository divisionRepository) {
         this.divisionRepository = divisionRepository;
@@ -30,7 +30,7 @@ public class DivisionService {
 
         return divisionMono.doOnNext( division -> {
             System.out.println("division "+division);
-            divisionRepository.insert(division);
+            divisionRepository.save(division);
 
         }).log();
     }
@@ -48,6 +48,8 @@ public class DivisionService {
     @PostConstruct
     public void init(){
 
+        if (logger.isInfoEnabled()) logger.info(" populating the divisions ");
         this.addDivision(Mono.just(new Division(1L,"E1")));
+        this.divisionRepository.save(new Division(1L,"E1"));
     }
 }

@@ -20,7 +20,7 @@ public class TeamService {
 	
 	 private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	    private TeamRepository teamRepository;
+	    private final TeamRepository teamRepository;
 
 	    public TeamService(TeamRepository teamRepository) {
 	        this.teamRepository = teamRepository;

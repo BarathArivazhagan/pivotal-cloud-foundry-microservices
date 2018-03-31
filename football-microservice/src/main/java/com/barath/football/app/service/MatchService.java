@@ -18,7 +18,7 @@ public class MatchService {
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private MatchRepository matchRepository;
+    private final MatchRepository matchRepository;
 
     public MatchService(MatchRepository matchRepository) {
         this.matchRepository = matchRepository;

@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 /**
  * Created by barath on 18/03/18.
  */
-public interface PlayerRepository extends ReactiveMongoRepository<Player,Long>{
+public interface PlayerRepository extends ReactiveMongoRepository<Player,String>{
 
     Flux<Player> findByPlayerName(Mono<String> playerName);
 }
