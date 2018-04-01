@@ -28,12 +28,14 @@ public class MatchService {
 
     public Mono<Match> saveMatchReportCard(Mono<Match> matchMono){
 
-        return matchMono.doOnNext(matchRepository::save).log();
+        return matchMono.doOnNext( match -> {
+            if(logger.isInfoEnabled())  logger.info("saving match report {} ", match);
+            this.matchRepository.save(match).subscribe();
+        }).log();
     }
 
     public Mono<Match> saveMatchReportCard(Match match){
 
-        System.out.println("MATCH "+match);
         return saveMatchReportCard(Mono.just(match));
     }
 

@@ -22,7 +22,7 @@ public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "test-2";
+        return "test";
     }
 
     @Override

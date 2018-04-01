@@ -30,7 +30,9 @@ public class RefereeService {
 
 	    public Mono<Referee> addReferee(Mono<Referee> playerMono){
 
-	        return playerMono.doOnNext(refereeRepository::save).log();
+	        return playerMono.doOnNext( referee -> {
+				this.refereeRepository.save(referee).subscribe();
+			}).log();
 	    }
 
 	    public Flux<Referee> getReferees(){

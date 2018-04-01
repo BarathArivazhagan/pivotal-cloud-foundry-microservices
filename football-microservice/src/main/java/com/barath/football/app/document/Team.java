@@ -7,16 +7,15 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
+
 /**
  * Created by barath on 18/03/18.
  */
 
 @Document(collection = "team")
-public class Team {
+public class Team extends  BaseDocument implements Serializable {
 
-    @Id
-    @JsonIgnore
-    private String id;
 
     @Indexed
     @Field
@@ -33,6 +32,7 @@ public class Team {
 
     public Team() {
     }
+
 
     public Long getTeamId() {
         return teamId;

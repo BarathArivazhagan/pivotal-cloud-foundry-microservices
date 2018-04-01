@@ -7,16 +7,14 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
+
 /**
  * Created by barath on 18/03/18.
  */
 
 @Document(collection = "referee")
-public class Referee {
-
-    @Id
-    @JsonIgnore
-    private String id;
+public class Referee extends  BaseDocument implements Serializable {
 
     @Indexed
     @Field
