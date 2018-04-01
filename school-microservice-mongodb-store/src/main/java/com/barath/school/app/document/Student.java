@@ -1,23 +1,31 @@
-package com.barath.school.app.model;
+package com.barath.school.app.document;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="STUDENT")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Document(collection="student")
 public class Student {
 	
 	
 	@Id
-	private long studentId;
+	@JsonIgnore
+	private String id;
+	
+	@Indexed
+	@Field
+	private Long studentId;
 	
 	
-	@Field(value="STUDENT_NAME")
+	@Field
 	private String studentName;
 	
 	@DBRef
-	@Field(value="SCHOOL_ID")
+	@Field
 	private School school;
 
 	public long getStudentId() {
@@ -83,12 +91,20 @@ public class Student {
 		
 	}
 
-	public Student(long studentId, String studentName, School school) {
+	public Student(Long studentId,String studentName, School school) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.school = school;
 	}
+
+	public Student(String studentName, School school) {
+		super();
+		this.studentName = studentName;
+		this.school = school;
+	}
+	
+	
 	
 	
 

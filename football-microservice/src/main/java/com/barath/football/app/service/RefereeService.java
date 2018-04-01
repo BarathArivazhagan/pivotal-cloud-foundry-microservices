@@ -21,7 +21,7 @@ public class RefereeService {
 	
 	 private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	    private RefereeRepository refereeRepository;
+	    private final RefereeRepository refereeRepository;
 
 	    public RefereeService(RefereeRepository refereeRepository) {
 	        this.refereeRepository = refereeRepository;

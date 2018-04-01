@@ -2,28 +2,25 @@ package com.barath.school.app.service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.barath.school.app.model.Student;
+import com.barath.school.app.document.Student;
 import com.barath.school.app.repository.StudentRepository;
 
 @Service
 public class StudentService {	
 		
-		private Logger logger=LoggerFactory.getLogger(StudentService.class);
-		private StudentRepository studentRep=null; 
-		private SchoolService schoolService=null;
+		private static final Logger logger=LoggerFactory.getLogger(StudentService.class);
+		private final StudentRepository studentRepository;
+		private final SchoolService schoolService;
 		
-		
-		@Autowired
-		public StudentService(StudentRepository studentRep,SchoolService schoolService){
-			this.studentRep=studentRep;
+		public StudentService(StudentRepository studentRepository,SchoolService schoolService){
+			this.studentRepository=studentRepository;
 			this.schoolService=schoolService;
 		}
 		
@@ -34,7 +31,7 @@ public class StudentService {
 					logger.info("SCHOOL DOESNT EXIST ADDING TO THE SCHOOL DOCUMENT");
 					schoolService.addSchool(student.getSchool());
 				}
-				studentRep.save(student);
+				studentRepository.save(student);
 			}else{
 				logger.error("Student Already exists");
 			}
@@ -43,7 +40,7 @@ public class StudentService {
 		
 		public Student getStudent(long studentId){
 						
-			Student student=studentRep.findByStudentId(studentId);		
+			Student student=studentRepository.findByStudentId(studentId);		
 			return student;
 		}
 		
@@ -69,23 +66,23 @@ public class StudentService {
 		}
 		public void deleteStudent(long studentId){
 			if(isStudentExists(studentId)){
-				studentRep.delete(studentId) ;
+				studentRepository.delete(studentId) ;
 			}
 		}
 		public void deleteStudent(Student student){
 			if(isStudentExists(student)){
-				studentRep.delete(student) ;
+				studentRepository.delete(student) ;
 			}
 		}
 		
 		public boolean isStudentExists(long studentId){
-			Student studentFound= studentRep.findByStudentId(studentId);
+			Student studentFound= studentRepository.findByStudentId(studentId);
 			return studentFound !=null ?  true:   false;
 		}
 		
 		public boolean isStudentExists(Student student){
 			if(student != null){
-				Student studentFound= studentRep.findByStudentId(student.getStudentId());
+				Student studentFound= studentRepository.findByStudentId(student.getStudentId());
 				return studentFound !=null ?  true:   false;
 			}
 			return false;
@@ -96,16 +93,21 @@ public class StudentService {
 
 		public Student getStudent(String studentName) {
 			
-			return studentRep.findByStudentName(studentName);
+			return studentRepository.findByStudentName(studentName);
 		}
 		
 		
 
 		public List<Student> getStudents() {
 			
-			return studentRep.findAll();
+			return studentRepository.findAll();
 		}
-
+	
+		
+		@PostConstruct
+		public void init(){
+			
+		}
 		
 
 

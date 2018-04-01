@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 /**
  * Created by barath on 18/03/18.
  */
-public interface TeamRepository  extends ReactiveMongoRepository<Team,Long>{
+public interface TeamRepository  extends ReactiveMongoRepository<Team,String>{
 
 	Flux<Team> findByTeamName(Mono<String> teamName);
 }

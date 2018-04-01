@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.barath.school.app.model.School;
-import com.barath.school.app.model.Student;
+import com.barath.school.app.document.School;
+import com.barath.school.app.document.Student;
 import com.barath.school.app.service.SchoolService;
 import com.barath.school.app.service.StudentService;
 

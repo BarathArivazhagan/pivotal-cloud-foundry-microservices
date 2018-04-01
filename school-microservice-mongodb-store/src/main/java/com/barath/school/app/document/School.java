@@ -1,28 +1,42 @@
-package com.barath.school.app.model;
+package com.barath.school.app.document;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="SCHOOL")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Document(collection="school")
 public class School {
 	
 	@Id
-	@Field(value="SCHOOL_ID")
-	private long schoolId;
+	@JsonIgnore
+	private String id;
 	
-	@Field(value="SCHOOL_NAME")
+	@Indexed
+	@Field
+	private Long schoolId;
+	
+	@Field
 	private String schoolName;
+	
+	
 
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 
-	public long getSchoolId() {
+	public Long getSchoolId() {
 		return schoolId;
 	}
 
-	public void setSchoolId(long schoolId) {
+	public void setSchoolId(Long schoolId) {
 		this.schoolId = schoolId;
 	}
 
@@ -36,7 +50,7 @@ public class School {
 	
 	
 	@PersistenceConstructor
-	public School(long schoolId, String schoolName) {
+	public School(Long schoolId, String schoolName) {
 		super();
 		this.schoolId = schoolId;
 		this.schoolName = schoolName;
