@@ -27,10 +27,11 @@ public class DivisionService {
 
 
     public Mono<Division> addDivision(Mono<Division> divisionMono){
-
+    	
+    	this.divisionRepository.saveAll(divisionMono);
         return divisionMono.doOnNext( division -> {
             System.out.println("division "+division);
-            divisionRepository.save(division);
+            this.divisionRepository.save(division);
 
         }).log();
     }

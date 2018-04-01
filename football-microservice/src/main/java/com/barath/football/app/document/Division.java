@@ -1,6 +1,7 @@
 package com.barath.football.app.document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 
 @Document(collection = "division")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Division {
 
     @Id

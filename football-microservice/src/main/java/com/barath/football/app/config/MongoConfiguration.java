@@ -17,13 +17,18 @@ import java.util.Collection;
  */
 
 @Configuration
-@AutoConfigureAfter(MongoReactiveDataAutoConfiguration.class)
-public class MongoConfiguration {
+@EnableReactiveMongoRepositories(basePackages="com.barath.football.app")
+public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 
-    private MongoClient mongoClient;
-
-    public MongoConfiguration(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        Assert.notNull(mongoClient,"mongo client cannot be null , recheck the configuration");
+    @Override
+    protected String getDatabaseName() {
+        return "test-2";
     }
+
+    @Override
+    public MongoClient reactiveMongoClient() {
+        return MongoClients.create();
+    }
+
+   
 }
