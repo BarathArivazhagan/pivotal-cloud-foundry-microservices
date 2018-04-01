@@ -27,11 +27,11 @@ public class DivisionService {
 
 
     public Mono<Division> addDivision(Mono<Division> divisionMono){
-    	
-    	this.divisionRepository.saveAll(divisionMono);
+
         return divisionMono.doOnNext( division -> {
-            System.out.println("division "+division);
-            this.divisionRepository.save(division);
+
+            if(logger.isInfoEnabled()) logger.info("adding division to the league {}",division);
+            this.divisionRepository.save(division).subscribe();
 
         }).log();
     }
@@ -49,8 +49,6 @@ public class DivisionService {
     @PostConstruct
     public void init(){
 
-        if (logger.isInfoEnabled()) logger.info(" populating the divisions ");
-        this.addDivision(Mono.just(new Division(1L,"E1")));
-        this.divisionRepository.save(new Division(1L,"E1"));
+       
     }
 }

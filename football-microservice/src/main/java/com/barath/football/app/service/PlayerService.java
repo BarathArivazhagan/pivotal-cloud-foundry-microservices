@@ -21,7 +21,7 @@ public class PlayerService {
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
@@ -30,7 +30,9 @@ public class PlayerService {
 
     public Mono<Player> addPlayer(Mono<Player> playerMono){
 
-        return playerMono.doOnNext(playerRepository::save).log();
+        return playerMono.doOnNext( player -> {
+            this.playerRepository.save(player).subscribe();
+        }).log();
     }
 
     public Flux<Player> getPlayers(){
@@ -46,6 +48,6 @@ public class PlayerService {
     @PostConstruct
     public void init(){
 
-        playerRepository.save(new Player(1L,"hello",new Team(1L,"team2")));
+
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,8 @@ import java.util.List;
  * Created by barath on 18/03/18.
  */
 @Document(collection = "matches")
-public class Match {
+public class Match extends  BaseDocument implements Serializable {
 
-    @Id
-    private String id;
 
     @Indexed
     @Field
@@ -38,13 +37,13 @@ public class Match {
     @DBRef
     private Referee referee;
 
-    @Field
+
     private Goal goals;
 
     @Field
     private String matchResult;
 
-    @Field
+
     private Shot shots;
 
     @Field
@@ -65,7 +64,9 @@ public class Match {
         this.matchResult = matchResult;
         this.shots = shots;
         this.cards = cards;
+        
     }
+
 
     public Division getDivision() {
         return division;

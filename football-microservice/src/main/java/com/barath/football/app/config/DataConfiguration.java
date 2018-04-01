@@ -28,18 +28,20 @@ public class DataConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private static final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    private MatchService matchService;
-    private TeamService teamService;
-    private RefereeService refereeService;
-    private PlayerService playerService;
-    private DivisionService divisionService;
+    private final MatchService matchService;
+    private final TeamService teamService;
+    private final RefereeService refereeService;
+    private final PlayerService playerService;
+    private final DivisionService divisionService;
+    private final SequenceService sequenceService;
 
-    public DataConfiguration(MatchService matchService, TeamService teamService, RefereeService refereeService, PlayerService playerService, DivisionService divisionService) {
+    public DataConfiguration(MatchService matchService, TeamService teamService, RefereeService refereeService, PlayerService playerService, DivisionService divisionService,SequenceService sequenceService) {
         this.matchService = matchService;
         this.teamService = teamService;
         this.refereeService = refereeService;
         this.playerService = playerService;
         this.divisionService = divisionService;
+        this.sequenceService=sequenceService;
     }
 
     public List<Match> loadCSVData() throws Exception {
@@ -58,7 +60,9 @@ public class DataConfiguration {
             matches.add(buildMatchDocument(rowAsMap));
         }
 
-        matches.forEach( m -> logger.info( "match document ==> {}",m));
+        matches.forEach( m -> {
+            if(logger.isDebugEnabled()) logger.debug( "match document ==> {}",m);
+        });
         return matches;
     }
 
@@ -88,7 +92,11 @@ public class DataConfiguration {
     public void populateData() throws Exception{
         loadCSVData().stream().forEach( match -> {
 
-            matchService.saveMatchReportCard(Mono.just(match));
+            this.divisionService.addDivision(Mono.just(match.getDivision())).subscribe();
+            this.refereeService.addReferee(Mono.just(match.getReferee())).subscribe();
+            this.teamService.addTeam(Mono.just(match.getHomeTeam())).subscribe();
+            this.teamService.addTeam(Mono.just(match.getAwayteam())).subscribe();
+            this.matchService.saveMatchReportCard(Mono.just(match)).subscribe();
 
         });
 
