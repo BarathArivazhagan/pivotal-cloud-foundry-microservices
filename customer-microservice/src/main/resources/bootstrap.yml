@@ -1,9 +1,0 @@
-spring:
-  profiles:
-    active:
-      - dev
-  cloud:
-    config:
-      uri: https://config-e60b5922-591c-4e8f-89de-3cf01fa22b79.cfapps.io
-
-     

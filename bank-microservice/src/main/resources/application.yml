@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: bank-microservice
-  profiles:
-    active:
-      - local
-      - mysql

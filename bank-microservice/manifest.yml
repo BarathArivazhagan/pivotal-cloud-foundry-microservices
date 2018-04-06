@@ -1,7 +1,0 @@
----
-applications:
-- name: EurekaClient-Bank-PCF
-  memory: 1024M
-  host: bankapp
-  domain: local.pcfdev.io
-  buildpack: java_buildpack

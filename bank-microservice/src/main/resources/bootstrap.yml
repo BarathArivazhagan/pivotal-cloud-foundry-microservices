@@ -1,9 +1,0 @@
-
-
-spring:
-   cloud:
-      config:
-        name: bank
-        
-        
-       
