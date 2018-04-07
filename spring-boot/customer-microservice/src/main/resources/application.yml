@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  
+
+spring:
+  application:
+    name: customer-microservice
+
+
+management:
+  security:
+    enabled: false
+security:
+  basic:
+    enabled: false
+
+
+    
+
