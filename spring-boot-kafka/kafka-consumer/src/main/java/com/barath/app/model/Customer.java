@@ -33,12 +33,4 @@ public class Customer implements Serializable{
 
     public Customer() {
     }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                '}';
-    }
 }

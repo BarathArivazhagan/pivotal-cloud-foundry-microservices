@@ -1,0 +1,21 @@
+
+server:
+  port: 9200
+
+spring:
+  kafka:
+    bootstrap-servers:
+    - localhost:9092
+    consumer:
+      group-id: customer-group    
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      
+        
+  application:
+    name: kafka-consumer
+
+kafka:
+  topics:
+    customer: customer-topic
+    order: order-topic
+      
