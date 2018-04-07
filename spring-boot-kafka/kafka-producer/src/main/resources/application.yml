@@ -1,0 +1,22 @@
+
+server:
+  port: 9100
+
+spring:
+  kafka:
+    bootstrap-servers:
+    - localhost:9092
+    producer:
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer:  org.springframework.kafka.support.serializer.JsonSerializer
+        
+  application:
+    name: kafka-producer
+    
+
+kafka:
+  topics:
+    customer: customer-topic
+    order: order-topic
+      
