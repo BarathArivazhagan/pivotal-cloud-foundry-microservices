@@ -28,11 +28,10 @@ public class PlayerService {
     }
 
 
-    public Mono<Player> addPlayer(Mono<Player> playerMono){
+    public Mono<Player> addPlayer(Mono<Player> player){
 
-        return playerMono.doOnNext( player -> {
-            this.playerRepository.save(player).subscribe();
-        }).log();
+        return player.flatMap(this.playerRepository::save).log();
+
     }
 
     public Flux<Player> getPlayers(){

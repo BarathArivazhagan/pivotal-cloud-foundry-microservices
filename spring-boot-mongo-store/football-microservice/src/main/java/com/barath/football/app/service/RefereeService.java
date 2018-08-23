@@ -28,11 +28,9 @@ public class RefereeService {
 	    }
 
 
-	    public Mono<Referee> addReferee(Mono<Referee> playerMono){
+	    public Mono<Referee> addReferee(Mono<Referee> referee){
 
-	        return playerMono.doOnNext( referee -> {
-				this.refereeRepository.save(referee).subscribe();
-			}).log();
+	        return 	referee.flatMap(this.refereeRepository::save).log();
 	    }
 
 	    public Flux<Referee> getReferees(){

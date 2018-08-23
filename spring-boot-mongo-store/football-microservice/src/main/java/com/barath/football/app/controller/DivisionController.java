@@ -20,9 +20,9 @@ public class DivisionController {
     }
 
     @PostMapping(value="/create")
-    public Mono<Division> createDivision(@RequestBody Mono<Division> divisionMono){
+    public Mono<Division> createDivision(@RequestBody Mono<Division> division){
 
-        return divisionService.addDivision(divisionMono);
+        return divisionService.addDivision(division);
     }
 
     @GetMapping(value = "/all")

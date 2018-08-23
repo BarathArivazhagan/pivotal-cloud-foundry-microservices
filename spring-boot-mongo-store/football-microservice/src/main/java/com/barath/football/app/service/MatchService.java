@@ -26,18 +26,14 @@ public class MatchService {
 
 
 
-    public Mono<Match> saveMatchReportCard(Mono<Match> matchMono){
+    public Mono<Match> saveMatchReportCard(Mono<Match> match){
 
-        return matchMono.doOnNext( match -> {
-            if(logger.isInfoEnabled())  logger.info("saving match report {} ", match);
-            this.matchRepository.save(match).subscribe();
-        }).log();
+
+
+         return   match.flatMap(this.matchRepository::save).log();
+
     }
 
-    public Mono<Match> saveMatchReportCard(Match match){
-
-        return saveMatchReportCard(Mono.just(match));
-    }
 
     public Flux<Match> getMatches(){
         return matchRepository.findAll();

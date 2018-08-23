@@ -27,11 +27,9 @@ public class TeamService {
 	    }
 
 
-	    public Mono<Team> addTeam(Mono<Team> teamMono){
+	    public Mono<Team> addTeam(Mono<Team> team){
 
-	        return teamMono.doOnNext( team -> {
-	        	this.teamRepository.save(team).subscribe();
-			}).log();
+	        return team.flatMap(this.teamRepository::save).log();
 	    }
 
 	    public Flux<Team> getTeams(){

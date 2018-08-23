@@ -26,14 +26,10 @@ public class DivisionService {
     }
 
 
-    public Mono<Division> addDivision(Mono<Division> divisionMono){
+    public Mono<Division> addDivision(Mono<Division> division){
 
-        return divisionMono.doOnNext( division -> {
+        return division.flatMap(this.divisionRepository::save).log();
 
-            if(logger.isInfoEnabled()) logger.info("adding division to the league {}",division);
-            this.divisionRepository.save(division).subscribe();
-
-        }).log();
     }
 
     public Flux<Division> getDivisions(){
@@ -46,9 +42,10 @@ public class DivisionService {
         return divisionRepository.findByDivisionName(divisionName);
     }
 
+
+
     @PostConstruct
     public void init(){
 
-       
     }
 }
