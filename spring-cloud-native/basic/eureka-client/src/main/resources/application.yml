@@ -4,5 +4,5 @@ server:
 spring:
   application:
     name: eureka-client
-  profiles:
-    active : local # pcf for pcf profile
+#  profiles:
+#    active : local # pcf for pcf profile

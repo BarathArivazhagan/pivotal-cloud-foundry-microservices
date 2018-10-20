@@ -1,7 +1,7 @@
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: eureka-server-barath.cfapps.io
   client:
     fetch-registry: false
     register-with-eureka: false

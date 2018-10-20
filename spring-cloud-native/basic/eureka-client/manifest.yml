@@ -1,0 +1,11 @@
+---
+applications:
+- name: eureka-client
+  memory: 1024M
+  instances: 1
+  host: eureka-client-barath
+  #domain: local.pcfdev.io
+  buildpack: java_buildpack
+  path: target/eureka-client-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: pcf

@@ -1,0 +1,6 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: https://eureka-server-barath.cfapps.io/eureka
+    register-with-eureka: true
+    fetch-registry: true
