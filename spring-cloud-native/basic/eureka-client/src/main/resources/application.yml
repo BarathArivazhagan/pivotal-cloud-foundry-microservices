@@ -4,5 +4,10 @@ server:
 spring:
   application:
     name: eureka-client
-#  profiles:
-#    active : local # pcf for pcf profile
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka
+    register-with-eureka: true
+    fetch-registry: true

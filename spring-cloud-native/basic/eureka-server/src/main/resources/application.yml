@@ -4,5 +4,10 @@ server:
 spring:
   application:
       name: eureka-server
-#  profiles:
-#    active : local # pcf for pcf profile
+      
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false
+    register-with-eureka: false
